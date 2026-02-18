@@ -14,7 +14,7 @@ interface Props {
   details?: any;
 }
 
-export const WeatherError: React.FC<Props> = ({ error, details }) => {
+export const WeatherError = ({ error, details }: Props) => {
   if (!error) return null;
 
   return (

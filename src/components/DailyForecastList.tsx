@@ -6,7 +6,7 @@ interface Props {
   forecasts: DailySummary[];
 }
 
-export const DailyForecastList: React.FC<Props> = ({ forecasts }) => {
+export const DailyForecastList = ({ forecasts }: Props) => {
   if (!forecasts?.length) return null;
 
   const formatDayLabel = (dayKey: string) => {

@@ -15,7 +15,7 @@ interface Props {
   cityName: string;
 }
 
-export const CurrentWeather: React.FC<Props> = ({ current, cityName }) => {
+export const CurrentWeather = ({ current, cityName }: Props) => {
   if (!current) return null;
 
   return (
