@@ -13,6 +13,15 @@ import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import * as Location from "expo-location";
 import { CloudRain } from "lucide-react-native";
 import { cssInterop } from "nativewind";
+import * as SplashScreen from "expo-splash-screen";
+import {
+  useFonts,
+  Raleway_400Regular,
+  Raleway_500Medium,
+  Raleway_600SemiBold,
+  Raleway_700Bold,
+  Raleway_900Black,
+} from "@expo-google-fonts/raleway";
 import { summarizeForecast } from "./src/services/weather";
 import { useWeather } from "./src/hooks/useWeather";
 import { CurrentWeather } from "./src/components/CurrentWeather";
@@ -20,6 +29,7 @@ import { DailyForecastList } from "./src/components/DailyForecastList";
 import { WeatherError } from "./src/components/WeatherError";
 import { QueryProvider } from "./src/providers/QueryProvider";
 
+SplashScreen.preventAutoHideAsync();
 import "./global.css";
 
 cssInterop(CloudRain, {
@@ -29,7 +39,25 @@ cssInterop(CloudRain, {
 });
 
 function MainContent() {
+  const [fontsLoaded, fontError] = useFonts({
+    Raleway_400Regular,
+    Raleway_500Medium,
+    Raleway_600SemiBold,
+    Raleway_700Bold,
+    Raleway_900Black,
+  });
+
   const { data, isLoading, isRefetching, error, refetch } = useWeather();
+
+  useEffect(() => {
+    if (fontsLoaded || fontError) {
+      SplashScreen.hideAsync();
+    }
+  }, [fontsLoaded, fontError]);
+
+  if (!fontsLoaded && !fontError) {
+    return null;
+  }
 
   const onRefresh = () => {
     refetch();
@@ -56,8 +84,12 @@ function MainContent() {
       />
       <View className="mb-4 flex-row items-center justify-between p-4">
         <View>
-          <Text className="text-3xl font-black text-indigo-950">JustNow</Text>
-          <Text className="text-slate-500">Tu clima, al instante</Text>
+          <Text className="text-3xl text-indigo-950 font-raleway-black">
+            JustNow
+          </Text>
+          <Text className="text-slate-500 font-raleway">
+            Tu clima, al instante
+          </Text>
         </View>
         <TouchableOpacity
           onPress={() => refetch()}
@@ -81,7 +113,9 @@ function MainContent() {
         {isLoading && !isRefetching ? (
           <View className="flex-1 items-center justify-center py-20">
             <ActivityIndicator size="large" color="#4f46e5" />
-            <Text className="mt-4 text-slate-500">Obteniendo clima...</Text>
+            <Text className="mt-4 text-slate-500 font-raleway">
+              Obteniendo clima...
+            </Text>
           </View>
         ) : (
           <>

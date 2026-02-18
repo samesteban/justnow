@@ -4,7 +4,15 @@ module.exports = {
   content: ["./App.{js,jsx,ts,tsx}", "./src/**/*.{js,jsx,ts,tsx}"],
   presets: [require("nativewind/preset")],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        raleway: ["Raleway_400Regular"],
+        "raleway-bold": ["Raleway_700Bold"],
+        "raleway-black": ["Raleway_900Black"],
+        "raleway-medium": ["Raleway_500Medium"],
+        "raleway-semibold": ["Raleway_600SemiBold"],
+      },
+    },
   },
   plugins: [],
 };
