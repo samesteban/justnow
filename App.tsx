@@ -49,7 +49,11 @@ function MainContent() {
 
   return (
     <SafeAreaView className="flex-1 bg-slate-50">
-      <StatusBar barStyle="light-content" />
+      <StatusBar
+        barStyle="dark-content"
+        backgroundColor="transparent"
+        translucent
+      />
       <View className="mb-4 flex-row items-center justify-between p-4">
         <View>
           <Text className="text-3xl font-black text-indigo-950">JustNow</Text>
